@@ -9,6 +9,25 @@ import { fmtUsdc } from "@/lib/business/format";
 import { TIER_NAME } from "@/lib/types";
 import { Tier } from "@/lib/types";
 
+// ── Geofence ─────────────────────────────────────────────────────────────────
+
+interface GeoCookie {
+  iso: string;
+  free: "allow" | "kyc" | "block";
+  paid: "allow" | "kyc" | "block";
+}
+
+function readGeoCookie(): GeoCookie | null {
+  if (typeof document === "undefined") return null;
+  const match = document.cookie.match(/(?:^|;\s*)mc-geo=([^;]+)/);
+  if (!match) return null;
+  try {
+    return JSON.parse(decodeURIComponent(match[1])) as GeoCookie;
+  } catch {
+    return null;
+  }
+}
+
 // ── Types ────────────────────────────────────────────────────────────────────
 
 interface ContestRow {
@@ -27,14 +46,24 @@ interface ContestRow {
 interface ContestCardProps {
   contest: ContestRow;
   address: Address | undefined;
+  geo: GeoCookie | null;
 }
 
-function ContestCard({ contest, address }: ContestCardProps) {
+function ContestCard({ contest, address, geo }: ContestCardProps) {
   const entryFee = BigInt(contest.entryFee);
   const pool = BigInt(contest.pool);
   const isFree = entryFee === 0n;
   const minTierLabel = TIER_NAME[contest.minTier as Tier] ?? `Tier ${contest.minTier}`;
   const contestIdBigInt = BigInt(contest.contestId);
+
+  const isPaid = !isFree;
+  const geoBlocked = isPaid && geo != null && geo.paid !== "allow";
+  const geoMessage =
+    geo?.paid === "block"
+      ? "Paid contests aren't available in your region"
+      : geo?.paid === "kyc"
+      ? "KYC required for paid contests in your region"
+      : null;
 
   // Request objects built at module scope (inside the component fn is fine since they are stable per render)
   const enterRequest = {
@@ -88,6 +117,14 @@ function ContestCard({ contest, address }: ContestCardProps) {
           request={enterRequest}
           label="Enter (free)"
         />
+      ) : geoBlocked ? (
+        // Paid contest geo-blocked
+        <button
+          disabled
+          className="w-full rounded bg-zinc-300 px-3 py-1.5 text-sm text-zinc-600"
+        >
+          {geoMessage}
+        </button>
       ) : (
         // Paid contest — approve then enter
         <div className="flex flex-col gap-2">
@@ -119,6 +156,7 @@ export default function ContestsPage() {
   const [contests, setContests] = useState<ContestRow[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [geo] = useState<GeoCookie | null>(readGeoCookie);
 
   const [refreshKey, setRefreshKey] = useState(0);
 
@@ -194,7 +232,7 @@ export default function ContestsPage() {
       {!loading && contests.length > 0 && (
         <section className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           {contests.map((c) => (
-            <ContestCard key={c.contestId} contest={c} address={address} />
+            <ContestCard key={c.contestId} contest={c} address={address} geo={geo} />
           ))}
         </section>
       )}

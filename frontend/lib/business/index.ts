@@ -6,3 +6,5 @@ export * from "./scoring";
 export * from "./pricing";
 export * from "./lineup";
 export * from "./merkle";
+export * from "./contest";
+export * from "./synergyPreview";

@@ -7,6 +7,11 @@ import type { PayoutLeaf } from "../types";
  *
  * Payout leaf  = keccak256(abi.encodePacked(address, uint256 amount))
  * DNP leaf      = keccak256(abi.encodePacked(uint256 tokenId))
+ * Score leaf   = keccak256(abi.encodePacked(address, uint32 matchday, int256 score))
+ *                  score is SIGNED (int256) — negative values are valid (own goals,
+ *                  red cards, etc. can push a wallet's total below zero).
+ *                  The oracle scales fractional fantasy points ×1000 before calling
+ *                  scoreLeaf (e.g. 16.5 pts → 16500n, -3.0 pts → -3000n).
  */
 
 export function payoutLeaf(account: Address, amount: bigint): Hex {
@@ -15,6 +20,20 @@ export function payoutLeaf(account: Address, amount: bigint): Hex {
 
 export function dnpLeaf(tokenId: bigint): Hex {
   return keccak256(encodePacked(["uint256"], [tokenId]));
+}
+
+/**
+ * Score-tree leaf (spec §3.3).
+ *
+ * Encoding: keccak256(abi.encodePacked(address wallet, uint32 matchday, int256 score))
+ *
+ * `score` is SIGNED (int256) — negative totals are valid.
+ * The oracle scales fractional fantasy points ×1000 before calling:
+ *   e.g. 16.5 pts → 16500n,  -3.0 pts → -3000n
+ * This keeps all values as integers while preserving sub-point precision.
+ */
+export function scoreLeaf(wallet: Address, matchday: number, score: bigint): Hex {
+  return keccak256(encodePacked(["address", "uint32", "int256"], [wallet, matchday, score]));
 }
 
 function hashPair(a: Hex, b: Hex): Hex {

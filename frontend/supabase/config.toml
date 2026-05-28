@@ -1,0 +1,3 @@
+# Supabase CLI project config — https://supabase.com/docs/guides/cli/config
+# Only project_id is needed to `link` + `db push` migrations to the hosted project.
+project_id = "jwylnndtmfyxnngfyuqq"

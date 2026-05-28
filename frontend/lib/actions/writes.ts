@@ -38,6 +38,12 @@ export function usdcApprove(wallet: WalletClient, spender: Address, amount: bigi
     args: [spender, amount], account: sender(wallet, from), chain: ACTIVE_CHAIN,
   });
 }
+export function usdcTransfer(wallet: WalletClient, to: Address, amount: bigint, from?: Address): Promise<Hex> {
+  return wallet.writeContract({
+    address: ADDRESSES.MockUSDC, abi: MockUSDCAbi, functionName: "transfer",
+    args: [to, amount], account: sender(wallet, from), chain: ACTIVE_CHAIN,
+  });
+}
 
 // ---------- Cards (admin) ----------
 export function setPlayerStats(
@@ -74,6 +80,18 @@ export function claimBaselineChips(wallet: WalletClient, from?: Address): Promis
 }
 
 // ---------- Packs ----------
+export function setPackPrice(wallet: WalletClient, packType: number, price: bigint, from?: Address): Promise<Hex> {
+  return wallet.writeContract({
+    address: ADDRESSES.PackSale, abi: PackSaleAbi, functionName: "setPackPrice",
+    args: [packType, price], account: sender(wallet, from), chain: ACTIVE_CHAIN,
+  });
+}
+export function setPlayerPool(wallet: WalletClient, pool: Hex[], from?: Address): Promise<Hex> {
+  return wallet.writeContract({
+    address: ADDRESSES.PackSale, abi: PackSaleAbi, functionName: "setPlayerPool",
+    args: [pool], account: sender(wallet, from), chain: ACTIVE_CHAIN,
+  });
+}
 export function buyPack(wallet: WalletClient, packType: number, from?: Address): Promise<Hex> {
   return wallet.writeContract({
     address: ADDRESSES.PackSale, abi: PackSaleAbi, functionName: "buy",

@@ -1,0 +1,222 @@
+{
+  "_comment": "Hand-crafted MatchEvents fixture for France XI in 4-3-3. NOT real API data. Players from lib/data PLAYERS catalog.",
+  "_lineup": {
+    "matchday": 1,
+    "wallet": "0x1111111111111111111111111111111111111111",
+    "formationIndex": 0,
+    "formationName": "4-3-3",
+    "captainIdx": 10,
+    "viceIdx": 7,
+    "chipId": 255
+  },
+  "_players": {
+    "slot0": "FRA-1-Maignan (GK)",
+    "slot1": "FRA-2-Pavard (DEF)",
+    "slot2": "FRA-5-Kounde (DEF)",
+    "slot3": "FRA-4-Upamecano (DEF)",
+    "slot4": "FRA-22-Theo (DEF)",
+    "slot5": "FRA-8-Tchouameni (MID)",
+    "slot6": "FRA-14-Rabiot (MID)",
+    "slot7": "FRA-7-Griezmann (MID) — VICE; acts as CAPTAIN because Mbappe (slot10) DNP",
+    "slot8": "FRA-11-Dembele (FWD)",
+    "slot9": "FRA-9-Giroud (FWD)",
+    "slot10": "FRA-10-Mbappe (FWD) — CAPTAIN; DNP (minutes=0) → vice Griezmann promoted"
+  },
+  "_hand_computed": {
+    "_synergies": "WidePlay fires (4-3-3 + Theo(Wingback)+Dembele(Winger) ≥2). GK×1.0, DEF/MID/FWD×1.05",
+    "_country": "All 11 FRA → sameNationCount=11 → countrySynergyMult=1.2",
+    "_chip": "ChipId.None=255 → captainMult=2.0",
+    "_captain_dnp": "Mbappe slot10 minutes=0 → vice Griezmann slot7 gets cap×2",
+    "_stacking_order": "raw × tier × trait × oop × stamina × captain × country × formation × chip",
+    "slot0_Maignan": {
+      "events": "4 saves, cleanSheet, played60, 90min",
+      "raw": "GK: saves=min(4×0.5,5)=2.0 + cleanSheet=4 + played60=1 = 7.0",
+      "tier": "Common=1.0",
+      "trait": "ShotStopper(saves×1.20)+SweeperKeeper(keyPasses×1.10). saves=2→delta=0.4; keyPasses=0→delta=0; base=7. trait=(7+0.4)/7=1.05714",
+      "stam": "stamina=80 > 70 → 1.05",
+      "country": "1.2",
+      "formation": "GK in WidePlay → 1.0",
+      "cap": "1.0",
+      "final": "7.0 × 1.0 × 1.05714 × 1.0 × 1.05 × 1.0 × 1.2 × 1.0 = 9.324"
+    },
+    "slot1_Pavard": {
+      "events": "1 tackle, cleanSheet, played60",
+      "raw": "DEF: cleanSheet=4 + tackle=min(1×0.5,4)=0.5 + played60=1 = 5.5",
+      "tier": "Common=1.0",
+      "trait": "Wall(cleanSheet×1.15)+Aggressor(tackles×1.10). cs=4→delta=0.6; tackles=0.5→delta=0.05; base=5.5. trait=(5.5+0.65)/5.5=1.11818",
+      "stam": "stamina=50 → 1.0",
+      "country": "1.2",
+      "formation": "DEF in WidePlay → 1.05",
+      "cap": "1.0",
+      "final": "5.5 × 1.0 × 1.11818 × 1.0 × 1.0 × 1.0 × 1.2 × 1.05 = 7.749"
+    },
+    "slot2_Kounde": {
+      "events": "1 keyPass, cleanSheet, played60",
+      "raw": "DEF: cleanSheet=4 + keyPass=min(1×0.3,3)=0.3 + played60=1 = 5.3",
+      "tier": "Rare=1.05",
+      "trait": "BallPlaying(keyPasses×1.25)+Wall(cleanSheet×1.15). kp=0.3→delta=0.075; cs=4→delta=0.6; base=5.3. trait=(5.3+0.675)/5.3=1.12736",
+      "stam": "stamina=50 → 1.0",
+      "country": "1.2",
+      "formation": "DEF in WidePlay → 1.05",
+      "cap": "1.0",
+      "final": "5.3 × 1.05 × 1.12736 × 1.0 × 1.0 × 1.0 × 1.2 × 1.05 = 7.905"
+    },
+    "slot3_Upamecano": {
+      "events": "cleanSheet, played60",
+      "raw": "DEF: cleanSheet=4 + played60=1 = 5.0",
+      "tier": "Common=1.0",
+      "trait": "Wall(cleanSheet×1.15)+Aggressor(tackles×1.10). cs=4→delta=0.6; tackles=0→delta=0; base=5. trait=(5+0.6)/5=1.12",
+      "stam": "stamina=50 → 1.0",
+      "country": "1.2",
+      "formation": "DEF in WidePlay → 1.05",
+      "cap": "1.0",
+      "final": "5.0 × 1.0 × 1.12 × 1.0 × 1.0 × 1.0 × 1.2 × 1.05 = 7.056"
+    },
+    "slot4_Theo": {
+      "events": "1 assist, played60, goalsConceded=1",
+      "raw": "DEF: assists=1×3=3 + played60=1 + goalsConceded penalty=floor(1/2)×(-1)=0 = 4.0",
+      "tier": "Common=1.0",
+      "trait": "Wingback(assists×1.20)+BallPlaying(keyPasses×1.25). assists=3→delta=0.6; kp=0→delta=0; base=4. trait=(4+0.6)/4=1.15",
+      "stam": "stamina=50 → 1.0",
+      "country": "1.2",
+      "formation": "DEF in WidePlay → 1.05",
+      "cap": "1.0",
+      "final": "4.0 × 1.0 × 1.15 × 1.0 × 1.0 × 1.0 × 1.2 × 1.05 = 5.796"
+    },
+    "slot5_Tchouameni": {
+      "events": "2 tackles, played60",
+      "raw": "MID: tackles=min(2×0.5,4)=1.0 + played60=1 = 2.0",
+      "tier": "Common=1.0",
+      "trait": "Anchor(cleanSheet×1.15)+BallWinner(tackles×1.20). cs=0→delta=0; tackles=1→delta=0.2; base=2. trait=(2+0.2)/2=1.10",
+      "stam": "stamina=50 → 1.0",
+      "country": "1.2",
+      "formation": "MID in WidePlay → 1.05",
+      "cap": "1.0",
+      "final": "2.0 × 1.0 × 1.10 × 1.0 × 1.0 × 1.0 × 1.2 × 1.05 = 2.772"
+    },
+    "slot6_Rabiot": {
+      "events": "1 goal, 1 assist, played60",
+      "raw": "MID: goal=1×6=6 + assist=1×3=3 + played60=1 = 10.0",
+      "tier": "Common=1.0",
+      "trait": "BoxToBox(all×1.10)+Playmaker(assists×1.25). all-delta: goals=6→0.6, assists=3→0.3, kp=0→0, cs=0→0, tackles=0→0; then Playmaker adds assists=3→delta=0.75. totalDelta=0.6+0.3+0.75=1.65; BUT BoxToBox is 'all' expanding to all positive categories, Playmaker is 'assists'. base=10. trait=(10+1.65)/10=1.165",
+      "stam": "stamina=50 → 1.0",
+      "country": "1.2",
+      "formation": "MID in WidePlay → 1.05",
+      "cap": "1.0",
+      "final": "10.0 × 1.0 × 1.165 × 1.0 × 1.0 × 1.0 × 1.2 × 1.05 = 14.679"
+    },
+    "slot7_Griezmann": {
+      "events": "2 assists, MOTM, played60",
+      "raw": "MID: assists=2×3=6 + MOTM=3 + played60=1 = 10.0",
+      "tier": "Common=1.0",
+      "trait": "Creator(keyPasses×1.30)+BoxToBox(all×1.10). kp=0→delta=0; all-delta: goals=0→0, assists=6→0.6, kp=0→0. totalDelta=0.6; base=10 BUT base bucket=MOTM(3)+played60(1)=4 not scaled. Positive cats: assists=6. BoxToBox all: delta assists=6×0.10=0.6. Creator: kp=0. totalDelta=0.6. trait=(10+0.6)/10=1.06",
+      "stam": "stamina=80 > 70 → 1.05",
+      "country": "1.2",
+      "formation": "MID in WidePlay → 1.05",
+      "cap": "2.0 (vice promoted as captain, ChipId.None)",
+      "final": "10.0 × 1.0 × 1.06 × 1.0 × 1.05 × 2.0 × 1.2 × 1.05 = 28.0476"
+    },
+    "slot8_Dembele": {
+      "events": "1 goal, played60",
+      "raw": "FWD: goal=1×5=5 + played60=1 = 6.0",
+      "tier": "Common=1.0",
+      "trait": "Winger(assists×1.20)+InsideForward(goals×1.15,assists×1.15). assists=0→delta=0; goals: Winger has no goals boost, InsideForward goals=5→delta=0.75; InsideForward assists=0→delta=0. totalDelta=0.75. trait=(6+0.75)/6=1.125",
+      "stam": "stamina=50 → 1.0",
+      "country": "1.2",
+      "formation": "FWD in WidePlay → 1.05",
+      "cap": "1.0",
+      "final": "6.0 × 1.0 × 1.125 × 1.0 × 1.0 × 1.0 × 1.2 × 1.05 = 8.505"
+    },
+    "slot9_Giroud": {
+      "events": "2 goals, played60",
+      "raw": "FWD: goals=2×5=10 + played60=1 = 11.0",
+      "tier": "Rare=1.05",
+      "trait": "TargetMan(goals×1.20)+Poacher(goals×1.25). goals=10: TargetMan delta=10×0.20=2.0; Poacher delta=10×0.25=2.5. totalDelta=4.5. trait=(11+4.5)/11=1.40909",
+      "stam": "stamina=50 → 1.0",
+      "country": "1.2",
+      "formation": "FWD in WidePlay → 1.05",
+      "cap": "1.0",
+      "final": "11.0 × 1.05 × 1.40909 × 1.0 × 1.0 × 1.0 × 1.2 × 1.05 = 20.5065"
+    },
+    "slot10_Mbappe": {
+      "events": "DNP (minutes=0, played60=false) — all events zero",
+      "raw": "0.0",
+      "note": "Captain but DNP → 0 points regardless of multipliers",
+      "final": "0.0"
+    },
+    "total": "9.324 + 7.749 + 7.905 + 7.056 + 5.796 + 2.772 + 14.679 + 28.0476 + 8.505 + 20.5065 + 0.0 = 112.34"
+  },
+  "eventsByPlayerId": {
+    "0xfe6a4ab9e8c53c5f5b57a155aeb61ea0eb5b332ad1ba7dadcd060cc570ab8fb5": {
+      "_player": "FRA-1-Maignan",
+      "goals": 0, "assists": 0, "cleanSheet": true, "tackles": 0, "keyPasses": 0,
+      "saves": 4, "penaltiesSaved": 0, "manOfTheMatch": false, "played60": true,
+      "yellowCards": 0, "redCards": 0, "ownGoals": 0, "penaltiesMissed": 0,
+      "goalsConceded": 0, "minutes": 90
+    },
+    "0xe5939b3017e29c10c1ae5496e14474d1e24e294c7f1c92e1419e70c3bdfc68a4": {
+      "_player": "FRA-2-Pavard",
+      "goals": 0, "assists": 0, "cleanSheet": true, "tackles": 1, "keyPasses": 0,
+      "saves": 0, "penaltiesSaved": 0, "manOfTheMatch": false, "played60": true,
+      "yellowCards": 0, "redCards": 0, "ownGoals": 0, "penaltiesMissed": 0,
+      "goalsConceded": 0, "minutes": 90
+    },
+    "0x7a99bd985eff8840a1ead413630c23c6073a22369d972e1710d23271d22062ab": {
+      "_player": "FRA-5-Kounde",
+      "goals": 0, "assists": 0, "cleanSheet": true, "tackles": 0, "keyPasses": 1,
+      "saves": 0, "penaltiesSaved": 0, "manOfTheMatch": false, "played60": true,
+      "yellowCards": 0, "redCards": 0, "ownGoals": 0, "penaltiesMissed": 0,
+      "goalsConceded": 0, "minutes": 90
+    },
+    "0x699789892a3f2663b455866b27321726785fe87975f37e28dbe91c4a1485ffc9": {
+      "_player": "FRA-4-Upamecano",
+      "goals": 0, "assists": 0, "cleanSheet": true, "tackles": 0, "keyPasses": 0,
+      "saves": 0, "penaltiesSaved": 0, "manOfTheMatch": false, "played60": true,
+      "yellowCards": 0, "redCards": 0, "ownGoals": 0, "penaltiesMissed": 0,
+      "goalsConceded": 0, "minutes": 90
+    },
+    "0x2430c89e2211805d3a0574aaf4929a71660f65c95c830cdd663fffe90a953bdb": {
+      "_player": "FRA-22-Theo",
+      "goals": 0, "assists": 1, "cleanSheet": false, "tackles": 0, "keyPasses": 0,
+      "saves": 0, "penaltiesSaved": 0, "manOfTheMatch": false, "played60": true,
+      "yellowCards": 0, "redCards": 0, "ownGoals": 0, "penaltiesMissed": 0,
+      "goalsConceded": 1, "minutes": 90
+    },
+    "0x64baec8404894d3acfd310a983dfb0f374ff9520e933060930a0cf69881f6af2": {
+      "_player": "FRA-8-Tchouameni",
+      "goals": 0, "assists": 0, "cleanSheet": false, "tackles": 2, "keyPasses": 0,
+      "saves": 0, "penaltiesSaved": 0, "manOfTheMatch": false, "played60": true,
+      "yellowCards": 0, "redCards": 0, "ownGoals": 0, "penaltiesMissed": 0,
+      "goalsConceded": 0, "minutes": 90
+    },
+    "0xc11ede48260eeeaad8d2b3fec87e2a9784cf986610ada26cdef2148808d12b30": {
+      "_player": "FRA-14-Rabiot",
+      "goals": 1, "assists": 1, "cleanSheet": false, "tackles": 0, "keyPasses": 0,
+      "saves": 0, "penaltiesSaved": 0, "manOfTheMatch": false, "played60": true,
+      "yellowCards": 0, "redCards": 0, "ownGoals": 0, "penaltiesMissed": 0,
+      "goalsConceded": 0, "minutes": 90
+    },
+    "0x190c58f473ee18bf7d7290c550e2d82ff69fe74c852025ac6a290bb77e55714e": {
+      "_player": "FRA-7-Griezmann (VICE → acts as CAPTAIN because Mbappe DNP)",
+      "goals": 0, "assists": 2, "cleanSheet": false, "tackles": 0, "keyPasses": 0,
+      "saves": 0, "penaltiesSaved": 0, "manOfTheMatch": true, "played60": true,
+      "yellowCards": 0, "redCards": 0, "ownGoals": 0, "penaltiesMissed": 0,
+      "goalsConceded": 0, "minutes": 90
+    },
+    "0x059e48cd2fbaf5c4b3c23208357b5ca9c9e53e6d24ce3869052193235537601a": {
+      "_player": "FRA-11-Dembele",
+      "goals": 1, "assists": 0, "cleanSheet": false, "tackles": 0, "keyPasses": 0,
+      "saves": 0, "penaltiesSaved": 0, "manOfTheMatch": false, "played60": true,
+      "yellowCards": 0, "redCards": 0, "ownGoals": 0, "penaltiesMissed": 0,
+      "goalsConceded": 0, "minutes": 90
+    },
+    "0x73f4a039cdad8f8ed0953d1d428cfe82542dd36922526d1a7746ba88acc6b5ec": {
+      "_player": "FRA-9-Giroud",
+      "goals": 2, "assists": 0, "cleanSheet": false, "tackles": 0, "keyPasses": 0,
+      "saves": 0, "penaltiesSaved": 0, "manOfTheMatch": false, "played60": true,
+      "yellowCards": 0, "redCards": 0, "ownGoals": 0, "penaltiesMissed": 0,
+      "goalsConceded": 0, "minutes": 90
+    }
+  },
+  "_note_no_mbappe_events": "Mbappe (0x42af441ef83967d91998802d0bcb2b11a6728b08e9c0060e7f76e5279d45b304) is absent from eventsByPlayerId → DNP → zero events"
+}

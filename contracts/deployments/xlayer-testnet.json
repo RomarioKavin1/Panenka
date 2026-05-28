@@ -4,6 +4,7 @@
   "rpc": "https://testrpc.xlayer.tech",
   "deployer": "0xA3327d90d087cdddfB99E598E50B5Bdee7fC55bD",
   "deployedAt": "2026-05-28",
+  "startBlock": 31509019,
   "note": "Post-flow-review build (46/46 tests): payout/season roots routed through ScoreOracle multi-sig, PackSale 16-block delay, contest minTier, insurance solvency guard, chip mint cap.",
   "contracts": {
     "MockUSDC": "0x29A46d0376C41423FF2aa9425A13c44FC53a1850",

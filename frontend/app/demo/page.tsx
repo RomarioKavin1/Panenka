@@ -98,7 +98,7 @@ export default function DemoPage() {
         <p className="rounded bg-amber-50 p-3 text-xs text-amber-800">
           Connect the contract <strong>owner</strong> wallet (it runs admin steps: stats, mint,
           matchday, oracle) and make sure it holds OKB gas. Phases share state — run them in order,
-          or hit “Run all”. Matchday {state.current.matchday}.
+          or hit “Run all”.
         </p>
       )}
 

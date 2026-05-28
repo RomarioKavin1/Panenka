@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePrivy, useWallets } from "@privy-io/react-auth";
-import { publicClient } from "@/lib/clients";
 import { usdcBalance } from "@/lib/actions/reads";
 import { fmtUsdc } from "@/lib/business/format";
 import type { Address } from "viem";
@@ -15,7 +14,7 @@ export default function Home() {
   const [balance, setBalance] = useState<bigint | null>(null);
 
   useEffect(() => {
-    if (!address) { setBalance(null); return; }
+    if (!address) return;
     usdcBalance(address).then(setBalance).catch(() => setBalance(null));
   }, [address]);
 
